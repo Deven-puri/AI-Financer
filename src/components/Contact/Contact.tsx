@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TopNav from '../TopNav/TopNav';
 import BreadcrumbAndProfile from '../BreadcrumbAndProfile/BreadcrumbAndProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser, faCode, faCalendar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUser, faCalendar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 interface GitHubUser {

@@ -29,31 +29,6 @@ export const askGROQ = async (
 
   const incomeByMonth = groupByMonth(incomes);
   const expenseByMonth = groupByMonth(expenses);
-  const financialData = {
-    summary: {
-      totalIncome,
-      totalExpense,
-      balance,
-      incomeCount: incomes.length,
-      expenseCount: expenses.length
-    },
-    incomes: incomes.map(i => ({
-      name: i.name,
-      amount: parseFloat(i.amount || '0'),
-      date: i.date,
-      category: i.category
-    })),
-    expenses: expenses.map(e => ({
-      name: e.name,
-      amount: parseFloat(e.amount || '0'),
-      date: e.date,
-      category: e.category
-    })),
-    trends: {
-      incomeByMonth,
-      expenseByMonth
-    }
-  };
 
   const prompt = `You are a friendly and professional financial advisor AI assistant. Analyze this financial data and provide helpful, easy-to-understand advice.
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faHome, faWallet, faDollarSign, faSignOutAlt, faBars, faTimes, faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 
 interface NavItem {
