@@ -1,0 +1,20 @@
+{
+  "short_name": "AI Financer",
+  "name": "AI Financer - Smart Financial Management",
+  "icons": [
+    {
+      "src": "images/Logo/NEW AI Financer.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/Logo/NEW AI Financer.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
