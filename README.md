@@ -106,7 +106,7 @@ ai-financer/
 └── README.md                           # Project documentation
 ```
 
-## 📂 File Descriptions
+##  File Descriptions
 
 ### Core Application Files
 
