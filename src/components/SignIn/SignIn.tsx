@@ -65,7 +65,23 @@ const SignIn: React.FC = () => {
     } catch (err) {
       const error = err as AuthError;
       console.error('Authentication error:', error);
-      setError(error.message || 'An error occurred during authentication');
+      let errorMessage = error.message || 'An error occurred during authentication';
+      
+      if (error.code === 'auth/unauthorized-domain') {
+        errorMessage = 'This domain is not authorized. Please contact the administrator or check Firebase settings.';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Invalid email address. Please check and try again.';
+      } else if (error.code === 'auth/user-not-found') {
+        errorMessage = 'No account found with this email. Please sign up first.';
+      } else if (error.code === 'auth/wrong-password') {
+        errorMessage = 'Incorrect password. Please try again.';
+      } else if (error.code === 'auth/email-already-in-use') {
+        errorMessage = 'This email is already registered. Please sign in instead.';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'Password is too weak. Please use at least 6 characters.';
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -80,7 +96,17 @@ const SignIn: React.FC = () => {
     } catch (err) {
       const error = err as AuthError;
       console.error('Google authentication error:', error);
-      setError(error.message || 'An error occurred during Google authentication');
+      let errorMessage = error.message || 'An error occurred during Google authentication';
+      
+      if (error.code === 'auth/unauthorized-domain') {
+        errorMessage = 'This domain is not authorized for Firebase authentication. Please add this domain to Firebase authorized domains in the Firebase Console.';
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = 'Sign-in popup was closed. Please try again.';
+      } else if (error.code === 'auth/popup-blocked') {
+        errorMessage = 'Popup was blocked by your browser. Please allow popups and try again.';
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
