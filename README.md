@@ -251,14 +251,14 @@ npm run deploy
 
 ## ✨ Key Features
 
-- **Financial Tracking**: Complete income and expense management
-- **AI Assistant**: GROQ AI-powered financial advisor
-- **Data Visualization**: Interactive charts with Chart.js
-- **Photo Upload**: Expense entries with image support
-- **Excel Export**: Export financial data to Excel
-- **Firebase Auth**: Secure authentication with Google Sign-In
-- **Responsive Design**: Works on desktop and mobile
-- **TypeScript**: Full type safety throughout the application
+- **Financial Tracking**: Complete income and expense management with real-time calculations
+- **AI Assistant**: GROQ AI-powered financial advisor for personalized insights
+- **Data Visualization**: Interactive charts with Chart.js showing income and expense trends
+- **Photo Upload**: Expense entries with image support (base64 storage)
+- **Excel Export**: Export financial data to Excel for external analysis
+- **Firebase Auth**: Secure authentication with Email/Password and Google Sign-In
+- **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile
+- **TypeScript**: Full type safety throughout the application for better code quality
 
 ## 📝 License
 
