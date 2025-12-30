@@ -224,12 +224,14 @@ npm install
 
 ### Environment Setup
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory with the following variables:
 
 ```
 REACT_APP_GROQ_API_KEY=your_groq_api_key_here
 REACT_APP_FIREBASE_API_KEY=your_firebase_api_key_here
 ```
+
+**Note**: Make sure to restart the development server after adding or updating environment variables.
 
 ### Run Development Server
 
