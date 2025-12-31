@@ -216,6 +216,13 @@ ai-financer/
 
 ## 🚀 Getting Started
 
+### Prerequisites
+
+- Node.js (v14 or higher recommended)
+- npm or yarn package manager
+- Firebase account for authentication
+- GROQ API key for AI features
+
 ### Installation
 
 ```bash
