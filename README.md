@@ -269,6 +269,13 @@ npm run deploy
 - **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile
 - **TypeScript**: Full type safety throughout the application for better code quality
 
+## 🔒 Security
+
+- All authentication is handled securely through Firebase
+- Financial data is stored locally in browser localStorage
+- API keys should never be committed to version control
+- Use environment variables for sensitive configuration
+
 ## 📝 License
 
 This project is private and proprietary.
