@@ -258,6 +258,10 @@ npm run build
 npm run deploy
 ```
 
+### Deploy to Vercel
+
+The project is configured for Vercel deployment. Simply connect your GitHub repository to Vercel for automatic deployments.
+
 ## ✨ Key Features
 
 - **Financial Tracking**: Complete income and expense management with real-time calculations
