@@ -284,6 +284,15 @@ The project is configured for Vercel deployment. Simply connect your GitHub repo
 
 This project is private and proprietary.
 
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+- **Firebase authentication errors**: Ensure your domain is authorized in Firebase Console
+- **GROQ API errors**: Verify your API key is correctly set in `.env` file
+- **Build errors**: Clear `node_modules` and reinstall dependencies
+- **Chart not displaying**: Check browser console for Chart.js errors
+
 ## 👤 Author
 
 **Deven Puri**
