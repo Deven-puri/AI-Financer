@@ -4,6 +4,8 @@
 
 AI Financer is a modern, intelligent financial management application built with React and TypeScript. It helps users track income, expenses, and provides AI-powered financial insights through GROQ AI integration.
 
+**Live Demo**: [https://ai-financer-zbbp.vercel.app](https://ai-financer-zbbp.vercel.app)
+
 ### Technologies & Frameworks
 
 ### Core Technologies
