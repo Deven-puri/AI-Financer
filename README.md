@@ -4,8 +4,6 @@
 
 AI Financer is a modern, intelligent financial management application built with React and TypeScript. It helps users track income, expenses, and provides AI-powered financial insights through GROQ AI integration.
 
-**Live Demo**: [https://ai-financer-zbbp.vercel.app](https://ai-financer-zbbp.vercel.app)
-
 ### Technologies & Frameworks
 
 ### Core Technologies
@@ -218,13 +216,6 @@ ai-financer/
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js (v14 or higher recommended)
-- npm or yarn package manager
-- Firebase account for authentication
-- GROQ API key for AI features
-
 ### Installation
 
 ```bash
@@ -233,14 +224,12 @@ npm install
 
 ### Environment Setup
 
-Create a `.env` file in the root directory with the following variables:
+Create a `.env` file in the root directory:
 
 ```
 REACT_APP_GROQ_API_KEY=your_groq_api_key_here
 REACT_APP_FIREBASE_API_KEY=your_firebase_api_key_here
 ```
-
-**Note**: Make sure to restart the development server after adding or updating environment variables.
 
 ### Run Development Server
 
@@ -260,40 +249,20 @@ npm run build
 npm run deploy
 ```
 
-### Deploy to Vercel
-
-The project is configured for Vercel deployment. Simply connect your GitHub repository to Vercel for automatic deployments.
-
 ## ✨ Key Features
 
-- **Financial Tracking**: Complete income and expense management with real-time calculations
-- **AI Assistant**: GROQ AI-powered financial advisor for personalized insights
-- **Data Visualization**: Interactive charts with Chart.js showing income and expense trends
-- **Photo Upload**: Expense entries with image support (base64 storage)
-- **Excel Export**: Export financial data to Excel for external analysis
-- **Firebase Auth**: Secure authentication with Email/Password and Google Sign-In
-- **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile
-- **TypeScript**: Full type safety throughout the application for better code quality
-
-## 🔒 Security
-
-- All authentication is handled securely through Firebase
-- Financial data is stored locally in browser localStorage
-- API keys should never be committed to version control
-- Use environment variables for sensitive configuration
+- **Financial Tracking**: Complete income and expense management
+- **AI Assistant**: GROQ AI-powered financial advisor
+- **Data Visualization**: Interactive charts with Chart.js
+- **Photo Upload**: Expense entries with image support
+- **Excel Export**: Export financial data to Excel
+- **Firebase Auth**: Secure authentication with Google Sign-In
+- **Responsive Design**: Works on desktop and mobile
+- **TypeScript**: Full type safety throughout the application
 
 ## 📝 License
 
 This project is private and proprietary.
-
-## 🛠️ Troubleshooting
-
-### Common Issues
-
-- **Firebase authentication errors**: Ensure your domain is authorized in Firebase Console
-- **GROQ API errors**: Verify your API key is correctly set in `.env` file
-- **Build errors**: Clear `node_modules` and reinstall dependencies
-- **Chart not displaying**: Check browser console for Chart.js errors
 
 ## 👤 Author
 

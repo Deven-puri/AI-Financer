@@ -16,6 +16,105 @@ interface Message {
   content: string;
 }
 
+const renderMarkdown = (text: string): JSX.Element[] => {
+  const lines = text.split('\n');
+  const elements: JSX.Element[] = [];
+  let key = 0;
+
+  const renderInlineMarkdown = (line: string): JSX.Element => {
+    const parts: (string | JSX.Element)[] = [];
+    const boldRegex = /(\*\*|__)(.+?)\1/g;
+    let match;
+    let lastIndex = 0;
+    let hasBold = false;
+
+    while ((match = boldRegex.exec(line)) !== null) {
+      hasBold = true;
+      if (match.index > lastIndex) {
+        const beforeText = line.substring(lastIndex, match.index);
+        if (beforeText) {
+          parts.push(beforeText);
+        }
+      }
+      parts.push(
+        <strong key={`bold-${key++}`} className="font-bold text-black">
+          {match[2]}
+        </strong>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < line.length) {
+      parts.push(line.substring(lastIndex));
+    }
+
+    if (!hasBold) {
+      return <>{line}</>;
+    }
+
+    return <>{parts}</>;
+  };
+
+  lines.forEach((line, idx) => {
+    const trimmedLine = line.trim();
+
+    if (trimmedLine.match(/^#{1,6}\s/)) {
+      const level = trimmedLine.match(/^#+/)?.[0].length || 1;
+      const text = trimmedLine.replace(/^#+\s/, '').trim();
+      const Tag = `h${Math.min(level, 6)}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+      const headingClasses = {
+        1: 'text-xl sm:text-2xl font-bold mt-6 mb-3 text-black',
+        2: 'text-lg sm:text-xl font-bold mt-5 mb-2 text-black',
+        3: 'text-base sm:text-lg font-semibold mt-4 mb-2 text-black',
+        4: 'text-sm sm:text-base font-semibold mt-3 mb-2 text-black',
+        5: 'text-sm font-semibold mt-3 mb-1 text-black',
+        6: 'text-xs sm:text-sm font-semibold mt-2 mb-1 text-black',
+      };
+      elements.push(
+        <Tag key={idx} className={headingClasses[level as keyof typeof headingClasses] || headingClasses[3]}>
+          {renderInlineMarkdown(text)}
+        </Tag>
+      );
+      return;
+    }
+
+    if (trimmedLine.match(/^[-•*]\s/)) {
+      const content = trimmedLine.replace(/^[-•*]\s/, '').trim();
+      elements.push(
+        <div key={idx} className="flex items-start ml-4 mb-2">
+          <span className="mr-3 mt-1 text-black font-bold">•</span>
+          <span className="flex-1">{renderInlineMarkdown(content)}</span>
+        </div>
+      );
+      return;
+    }
+    if (trimmedLine.match(/^\d+\.\s/)) {
+      const number = trimmedLine.match(/^\d+\./)?.[0];
+      const content = trimmedLine.replace(/^\d+\.\s/, '').trim();
+      elements.push(
+        <div key={idx} className="flex items-start ml-4 mb-2">
+          <span className="mr-3 font-semibold text-black">{number}</span>
+          <span className="flex-1">{renderInlineMarkdown(content)}</span>
+        </div>
+      );
+      return;
+    }
+
+    if (!trimmedLine) {
+      elements.push(<br key={idx} />);
+      return;
+    }
+
+    elements.push(
+      <p key={idx} className="mb-3 last:mb-0 text-gray-800">
+        {renderInlineMarkdown(trimmedLine)}
+      </p>
+    );
+  });
+
+  return elements;
+};
+
 const AIAssistant: React.FC<AIAssistantProps> = ({ incomes, expenses }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -90,48 +189,8 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ incomes, expenses }) => {
                 >
                   <div className="prose prose-sm max-w-none">
                     {msg.role === 'ai' ? (
-                      <div className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed">
-                        {msg.content.split('\n').map((line, idx) => {
-                          if (line.match(/^#{1,3}\s/)) {
-                            const level = line.match(/^#+/)?.[0].length || 1;
-                            const text = line.replace(/^#+\s/, '');
-                            const Tag = `h${Math.min(level, 3)}` as 'h1' | 'h2' | 'h3';
-                            return (
-                              <Tag
-                                key={idx}
-                                className={`font-bold mt-4 mb-2 ${
-                                  level === 1 ? 'text-lg' : level === 2 ? 'text-base' : 'text-sm'
-                                }`}
-                              >
-                                {text}
-                              </Tag>
-                            );
-                          }
-                          if (line.match(/^[-•*]\s/)) {
-                            return (
-                              <div key={idx} className="flex items-start ml-4 mb-1">
-                                <span className="mr-2">•</span>
-                                <span>{line.replace(/^[-•*]\s/, '')}</span>
-                              </div>
-                            );
-                          }
-                          if (line.match(/^\d+\.\s/)) {
-                            return (
-                              <div key={idx} className="flex items-start ml-4 mb-1">
-                                <span className="mr-2 font-semibold">{line.match(/^\d+\./)?.[0]}</span>
-                                <span>{line.replace(/^\d+\.\s/, '')}</span>
-                              </div>
-                            );
-                          }
-                          if (line.trim()) {
-                            return (
-                              <p key={idx} className="mb-2 last:mb-0">
-                                {line}
-                              </p>
-                            );
-                          }
-                          return <br key={idx} />;
-                        })}
+                      <div className="text-xs sm:text-sm leading-relaxed">
+                        {renderMarkdown(msg.content)}
                       </div>
                     ) : (
                       <p className="whitespace-pre-wrap">{msg.content}</p>
@@ -149,7 +208,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ incomes, expenses }) => {
             )}
           </div>
 
-          {/* Input Form */}
           <form onSubmit={handleSubmit} className="p-4 sm:p-6 border-t border-gray-200">
             <div className="flex gap-2 sm:gap-3">
               <input

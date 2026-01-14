@@ -30,7 +30,6 @@ const Contact: React.FC = () => {
         const data = await response.json();
         setGithubData(data);
       } catch (error) {
-        console.error('Error fetching GitHub data:', error);
       } finally {
         setLoading(false);
       }

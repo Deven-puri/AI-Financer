@@ -7,14 +7,6 @@ export const askGROQ = async (
 ): Promise<string> => {
   let apiKey = process.env.REACT_APP_GROQ_API_KEY || '';
   
-  if (process.env.NODE_ENV === 'development') {
-    console.log('GROQ API Key check:', {
-      exists: !!apiKey,
-      length: apiKey?.length || 0,
-      startsWith: apiKey?.substring(0, 10) || 'none'
-    });
-  }
-  
   if (apiKey) {
     apiKey = apiKey.replace(/^["']+|["']+$/g, '').trim();
   }
@@ -47,11 +39,18 @@ User Question: ${question}
 IMPORTANT: Write your response in a friendly, conversational tone that's easy to read and understand. Use:
 - Short paragraphs (2-3 sentences max)
 - Bullet points for lists
-- Clear headings when needed
+- Clear headings with markdown: Use ## for main headings and ### for subheadings
+- Bold text for emphasis: Use **text** to highlight important points, key numbers, or section titles
 - Emojis sparingly (only when helpful: 💰 📊 📈 💡)
 - Simple language (avoid jargon)
 - Positive, encouraging tone
 - Specific numbers and examples from their data
+
+Format your response using markdown:
+- Use ## Heading for main sections (e.g., ## Getting Started)
+- Use ### Subheading for subsections
+- Use **bold** for important terms, amounts, or key points
+- Use bullet points (-) for lists
 
 Format your response to be visually appealing and scannable. Make it feel like you're having a helpful conversation, not reading a financial report.
 

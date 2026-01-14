@@ -6,16 +6,22 @@ import { BreadcrumbAndProfileProps } from '../../types';
 
 const BreadcrumbAndProfile: React.FC<BreadcrumbAndProfileProps> = ({ breadcrumbItems, pageTitle }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isGuest, setIsGuest] = useState<boolean>(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
+    const guestMode = localStorage.getItem('isGuest') === 'true';
+    setIsGuest(guestMode);
+    
+    if (!guestMode) {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+      });
+      return () => unsubscribe();
+    }
   }, []);
 
-  const username = user?.displayName || user?.email?.split('@')[0] || 'User';
-  const role = 'Finance Manager';
+  const username = isGuest ? 'Guest' : (user?.displayName || user?.email?.split('@')[0] || 'User');
+  const role = isGuest ? 'Guest User' : 'Finance Manager';
 
   let welcomeMessage = `Welcome, ${username}`;
   let financialStatusSummary = "Here's a summary of your financial status.";

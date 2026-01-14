@@ -47,10 +47,6 @@ const Incomes: React.FC<IncomesProps> = ({ incomes, setIncomes }) => {
 
   const categories: string[] = ['Salary', 'Freelance', 'Investment', 'Other'];
 
-  useEffect(() => {
-    localStorage.setItem('incomes', JSON.stringify(incomes));
-  }, [incomes]);
-
   const exportToExcel = (): void => {
     const ws = XLSX.utils.json_to_sheet(incomes);
     const wb = XLSX.utils.book_new();

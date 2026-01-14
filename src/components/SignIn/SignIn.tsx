@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock, faArrowRight, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock, faArrowRight, faEye, faEyeSlash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword, AuthError } from 'firebase/auth';
 import { auth, googleProvider } from '../../firebase_config';
@@ -16,8 +16,16 @@ const SignIn: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
 
   useEffect(() => {
+    const guestMode = localStorage.getItem('isGuest') === 'true';
+    if (guestMode) {
+      navigate('/dashboard');
+      return;
+    }
+    
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        localStorage.removeItem('isGuest');
+        localStorage.removeItem('guestUserId');
         navigate('/dashboard');
       }
     });
@@ -56,6 +64,9 @@ const SignIn: React.FC = () => {
     }
 
     try {
+      localStorage.removeItem('isGuest');
+      localStorage.removeItem('guestUserId');
+      
       if (isSignUp) {
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
@@ -64,7 +75,6 @@ const SignIn: React.FC = () => {
       navigate('/dashboard');
     } catch (err) {
       const error = err as AuthError;
-      console.error('Authentication error:', error);
       let errorMessage = error.message || 'An error occurred during authentication';
       
       if (error.code === 'auth/unauthorized-domain') {
@@ -91,11 +101,12 @@ const SignIn: React.FC = () => {
     setLoading(true);
     setError('');
     try {
+      localStorage.removeItem('isGuest');
+      localStorage.removeItem('guestUserId');
       await signInWithPopup(auth, googleProvider);
       navigate('/dashboard');
     } catch (err) {
       const error = err as AuthError;
-      console.error('Google authentication error:', error);
       let errorMessage = error.message || 'An error occurred during Google authentication';
       
       if (error.code === 'auth/unauthorized-domain') {
@@ -116,6 +127,12 @@ const SignIn: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleGuestLogin = () => {
+    localStorage.setItem('isGuest', 'true');
+    localStorage.setItem('guestUserId', `guest_${Date.now()}`);
+    navigate('/dashboard');
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-white py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md bg-white border-2 border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8 md:p-10 transform transition-all">
@@ -134,7 +151,7 @@ const SignIn: React.FC = () => {
           </div>
         )}
 
-        <div className="mb-4 sm:mb-6">
+        <div className="mb-4 sm:mb-6 space-y-3">
           <button
             type="button"
             className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-white hover:bg-gray-50 text-gray-700 font-medium py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg border-2 border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
@@ -155,6 +172,16 @@ const SignIn: React.FC = () => {
             {loading && (
               <div className="absolute inset-0 bg-gray-200 animate-pulse opacity-50"></div>
             )}
+          </button>
+          
+          <button
+            type="button"
+            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-black hover:bg-gray-800 text-white font-medium py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg border-2 border-black transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+            onClick={handleGuestLogin}
+            disabled={loading}
+          >
+            <FontAwesomeIcon icon={faUser} className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="text-xs sm:text-base">Sign in as Guest</span>
           </button>
         </div>
 

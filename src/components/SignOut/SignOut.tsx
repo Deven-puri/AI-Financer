@@ -9,12 +9,25 @@ const SignOut: React.FC = () => {
   useEffect(() => {
     const handleSignOut = async () => {
       try {
-        await signOut(auth);
+        const isGuest = localStorage.getItem('isGuest') === 'true';
+        
+        if (isGuest) {
+          localStorage.removeItem('isGuest');
+          localStorage.removeItem('guestUserId');
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        } else {
+          await signOut(auth);
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Error signing out:', error);
         setTimeout(() => {
           navigate('/');
         }, 2000);
-      } catch (error) {
-        console.error('Error signing out:', error);
       }
     };
 
