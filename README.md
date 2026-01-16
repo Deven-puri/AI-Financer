@@ -169,6 +169,7 @@ ai-financer/
 - Email/password and Google sign-in
 - Sign-up toggle functionality
 - Form validation and error handling
+- EmailJS for email services
 
 **`src/components/SignOut/SignOut.tsx`**
 - Sign out confirmation page
