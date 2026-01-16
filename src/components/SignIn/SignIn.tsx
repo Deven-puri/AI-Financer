@@ -173,16 +173,6 @@ const SignIn: React.FC = () => {
               <div className="absolute inset-0 bg-gray-200 animate-pulse opacity-50"></div>
             )}
           </button>
-          
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-black hover:bg-gray-800 text-white font-medium py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg border-2 border-black transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-            onClick={handleGuestLogin}
-            disabled={loading}
-          >
-            <FontAwesomeIcon icon={faUser} className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-xs sm:text-base">Sign in as Guest</span>
-          </button>
         </div>
 
         <div className="relative mb-6">
@@ -277,15 +267,15 @@ const SignIn: React.FC = () => {
         </form>
 
         <div className="mt-4 sm:mt-6 text-center space-y-2">
-          <Link
-            to="#"
-            className="text-xs sm:text-sm text-black hover:text-gray-700 hover:underline font-medium"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
+          <button
+            type="button"
+            className="block w-full text-xs sm:text-sm text-black hover:text-gray-700 hover:underline font-medium"
+            onClick={handleGuestLogin}
+            disabled={loading}
           >
-            Forgot password?
-          </Link>
+            Continue as guest
+          </button>
+          
           <p className="text-xs sm:text-sm text-gray-600">
             {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
             <button
