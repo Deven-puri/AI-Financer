@@ -25,12 +25,21 @@ const Contact: React.FC = () => {
       message: userMessage,
     };
 
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      alert("EmailJS configuration is missing. Please check your environment variables.");
+      return;
+    }
+
     emailjs
       .send(
-        "service_b20xe92", // Your Service ID
-        "template_kaa7g7l", // Your Template ID
+        serviceId,
+        templateId,
         templateParams,
-        "NV0ROk8B_gA2x6C2a" // Your Public Key
+        publicKey
       )
       .then(
         (response) => {
