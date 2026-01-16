@@ -1,5 +1,3 @@
-import { Expense } from '../types';
-
 export interface ExtractedBillData {
   name: string;
   amount: string;
